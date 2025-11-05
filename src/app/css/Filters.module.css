@@ -1,0 +1,90 @@
+.panel {
+  position: absolute;
+  top: 72px;
+  right: 16px;
+  z-index: 150;
+  width: 300px;
+  background: #0b1220;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  box-sizing: border-box;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+.inline {
+  position: static;
+  z-index: auto;
+  width: auto;
+  background: #0b1220;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+.title { font-weight: 600; margin-bottom: 8px; }
+.rowFiltros {
+  display: grid;
+  grid-template-columns: minmax(100px, 140px) 1fr; /* Label | Control */
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  grid-template-columns: 20% 80%;
+}
+.rowFiltros label {
+  width: 100%;
+  text-align: left;
+  color: #93c5fd;
+}
+
+.rowFiltros select {
+  width: 100%;
+}
+.rowFiltrosFechas {
+  display: grid;
+  grid-template-columns: minmax(100px, 140px) 1fr 1fr; /* Label | Desde | Hasta */
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  width: 100%;
+  grid-template-columns: 20% 40% 40%;
+}
+
+.rowFiltrosFechas label {
+  width: 100%;
+  text-align: left;
+  color: #93c5fd;
+}
+
+
+.rowFiltrosFechas .subLabel {
+  font-size: 11px;
+  color: #7ea2d6;
+}
+.fechaInput {
+  display: flex;
+  flex-direction: column;
+  min-width: 105px;
+}
+.fechaInput span {
+  font-size: 11px;
+  color: #7ea2d6;
+}
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.panel label { color: #93c5fd; font-size: 13px; }
+.panel select, .panel input { background: #0f172a; color: #e5e7eb; border: 1px solid #334155; border-radius: 8px; padding: 6px 8px; width: 100%; }
+.footer { display: flex; justify-content: space-between; align-items: center; }
+.reset { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+.reset:hover { background: #111827; }
+.reset { font-size: 13px; line-height: 18px; }
+
+/* Inline compact rows: label + control en la misma línea */
+.rowInline { display: flex; align-items: center; gap: 8px; }
+.rowInline .labelInline { flex: 0 0 120px; color: #93c5fd; font-size: 12px; }
+.rowInline .smallInput { flex: 1 1 auto; max-width: 180px; }

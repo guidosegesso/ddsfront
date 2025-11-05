@@ -1,0 +1,38 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-bottom: 1px solid #1f2937;
+}
+
+.left, .right { display: flex; align-items: center; gap: 8px; }
+.center { font-weight: 600; letter-spacing: 0.3px; }
+
+.icon {
+  background: transparent;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.icon:hover { background: #111827; }
+
+.textBtn {
+  background: #1f2937;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.textBtn:hover { background: #111827; }
+
+/* roleSelect eliminado: ahora el estado de sesión define las opciones */
