@@ -1,8 +1,19 @@
-.form { max-width: 840px; margin: 16px auto; padding: 16px; background: #0b1220; color: #e5e7eb; border: 1px solid #334155; border-radius: 12px; }
+.pageWrap { min-height: calc(100vh - 56px); background: #488FFA; padding: 16px; }
+.form { 
+    max-width: 840px; 
+    margin: 16px auto; 
+    padding: 16px; 
+    background: #488FFA; 
+    color: #FFFFFF; 
+    border: 3px solid #044DBA; 
+    border-radius: 12px; 
+}
 .row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-.form label { color: #93c5fd; font-size: 14px; }
-.form input, .form textarea { background: #0f172a; color: #e5e7eb; border: 1px solid #334155; border-radius: 8px; padding: 8px 10px; }
+.form label { color: #FFFFFF; font-size: 14px; }
+.form input, .form textarea, .form select { background: #FFFFFF; color: #044DBA; border: 1px solid #044DBA; border-radius: 8px; padding: 10px 12px; outline: none; }
+.form input:hover, .form textarea:hover, .form select:hover { border-color: #3A7FF5; }
+.form input:focus, .form textarea:focus, .form select:focus { border-color: #3A7FF5; box-shadow: 0 0 0 2px rgba(4,77,186,0.25); }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .actions { display: flex; justify-content: flex-end; margin-top: 12px; }
-.form button { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; border-radius: 8px; padding: 8px 12px; cursor: pointer; }
-.form button:hover { background: #111827; }
+.form button { background: #044DBA; color: #FFFFFF; border: 1px solid #044DBA; border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+.form button:hover { background: #013b8d; }

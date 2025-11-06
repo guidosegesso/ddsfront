@@ -1,16 +1,15 @@
 "use client";
 import React, { useState } from 'react';
 import styles from '../css/FormHecho.module.css';
-import UploadAdjunto from './UploadAdjunto';
 
 export type HechoInput = {
   titulo: string;
   descripcion: string;
-  fecha?: string;
   categoria?: string;
+  direccion?: string;
   lat?: string;
   lng?: string;
-  fuentes?: string;
+  etiquetas?: string; // separadas por coma
 };
 
 export default function FormHecho({
@@ -23,17 +22,39 @@ export default function FormHecho({
   const [form, setForm] = useState<HechoInput>({
     titulo: initialData?.titulo || '',
     descripcion: initialData?.descripcion || '',
-    fecha: initialData?.fecha || '',
     categoria: initialData?.categoria || '',
+    direccion: initialData?.direccion || '',
     lat: initialData?.lat || '',
     lng: initialData?.lng || '',
-    fuentes: initialData?.fuentes || '',
+    etiquetas: initialData?.etiquetas || '',
   });
+  const [categorias, setCategorias] = useState<string[]>(['Robos', 'Obras', 'Incidentes', 'Eventos', 'Dato']);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    const etiquetas = (form.etiquetas || '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const latitud = form.lat ? parseFloat(form.lat) : undefined;
+    const longitud = form.lng ? parseFloat(form.lng) : undefined;
+    const payload = {
+      hecho_etiquetas: etiquetas,
+      hecho_estado: 'ORIGINAL',
+      hecho_fotos: [],
+      hecho_titulo: form.titulo,
+      hecho_descripcion: form.descripcion,
+      hecho_categoria: form.categoria || '',
+      hecho_direccion: form.direccion ? form.direccion : null,
+      hecho_ubicacion: {
+        latitud: latitud ?? 0,
+        longitud: longitud ?? 0,
+      },
+      hecho_origen: 'PROVISTO_CONTRIBUYENTE',
+    };
+    console.log('Hecho a crear:', payload);
+    alert('Hecho creado (mock):\n' + JSON.stringify(payload, null, 2));
     onSubmit?.(form);
-    alert('Guardado (mock)');
   };
 
   return (
@@ -56,40 +77,49 @@ export default function FormHecho({
           rows={4}
         />
       </div>
+
       <div className={styles.grid2}>
         <div className={styles.row}>
-          <label>Fecha</label>
-          <input type="date" value={form.fecha} onChange={(e) => setForm({ ...form, fecha: e.target.value })} />
+          <label>Categoría</label>
+          <select value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })}>
+            <option value="">Selecciona una categoría</option>
+            {categorias.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
         </div>
         <div className={styles.row}>
-          <label>Categoría</label>
-          <input value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })} />
+          <label>Dirección (opcional)</label>
+          <input
+            value={form.direccion}
+            onChange={(e) => setForm({ ...form, direccion: e.target.value })}
+            placeholder="Calle 123, Ciudad"
+          />
         </div>
       </div>
+
       <div className={styles.grid2}>
         <div className={styles.row}>
           <label>Latitud</label>
-          <input value={form.lat} onChange={(e) => setForm({ ...form, lat: e.target.value })} />
+          <input type="number" step="any" min={-90} max={90} required value={form.lat} onChange={(e) => setForm({ ...form, lat: e.target.value })} />
         </div>
         <div className={styles.row}>
           <label>Longitud</label>
-          <input value={form.lng} onChange={(e) => setForm({ ...form, lng: e.target.value })} />
+          <input type="number" step="any" min={-180} max={180} required value={form.lng} onChange={(e) => setForm({ ...form, lng: e.target.value })} />
         </div>
       </div>
+
       <div className={styles.row}>
-        <label>Fuentes</label>
-        <textarea
-          value={form.fuentes}
-          onChange={(e) => setForm({ ...form, fuentes: e.target.value })}
-          placeholder="URLs o referencias"
-          rows={3}
+        <label>Etiquetas (separadas por coma)</label>
+        <input
+          value={form.etiquetas}
+          onChange={(e) => setForm({ ...form, etiquetas: e.target.value })}
+          placeholder="robo, zona-sur, auto"
         />
       </div>
 
-      <UploadAdjunto />
-
       <div className={styles.actions}>
-        <button type="submit">Guardar</button>
+        <button type="submit">Crear Hecho</button>
       </div>
     </form>
   );

@@ -6,8 +6,9 @@
 }
 .side {
   min-width: 368px;
-  border-right: 1px solid #1f2937;
-  background: #0b1220;
+  border-right: 1px solid #044DBA;
+  background: #488FFA;
+  color: #FFFFFF;
   box-sizing: border-box;
   padding: 12px;
   overflow-y: auto;
@@ -18,9 +19,10 @@
   min-width: 0;
   height: 100%;
 }
-.sectionTitle { font-weight: 600; margin: 8px 0 10px 0; font-size: 14px; }
-.toggle { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 13px; }
-.toggle:hover { background: #111827; }
+.sectionTitle { font-weight: 600; margin: 8px 0 10px 0; font-size: 14px; color: #FFFFFF; }
+.toggle { background: #044DBA; color: #FFFFFF; border: 1px solid #044DBA; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; }
+.toggle:hover { background: #013b8d; }
+.toggleActive { background: #013b8d; }
 
 .resizer {
   width: 6px;

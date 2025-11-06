@@ -7,32 +7,32 @@
   justify-content: space-between;
   gap: 8px;
   padding: 8px 12px;
-  background: #0f172a;
-  color: #e2e8f0;
-  border-bottom: 1px solid #1f2937;
+  background: #044DBA;
+  color: #FFFFFF;
+  border-bottom: 1px solid #013b8d;
 }
 
 .left, .right { display: flex; align-items: center; gap: 8px; }
 .center { font-weight: 600; letter-spacing: 0.3px; }
 
 .icon {
-  background: transparent;
-  color: #e2e8f0;
-  border: 1px solid #334155;
+  background: #488FFA;
+  color: #FFFFFF;
+  border: 1px solid transparent;
   border-radius: 8px;
   padding: 6px 10px;
   cursor: pointer;
 }
-.icon:hover { background: #111827; }
+.icon:hover { background: #3A7FF5; }
 
 .textBtn {
-  background: #1f2937;
-  color: #e5e7eb;
-  border: 1px solid #374151;
+  background: #488FFA;
+  color: #FFFFFF;
+  border: 1px solid transparent;
   border-radius: 8px;
   padding: 6px 10px;
   cursor: pointer;
 }
-.textBtn:hover { background: #111827; }
+.textBtn:hover { background: #3A7FF5; }
 
 /* roleSelect eliminado: ahora el estado de sesión define las opciones */

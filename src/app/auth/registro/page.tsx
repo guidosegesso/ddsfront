@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useSession } from '../../components/SessionContext';
 import styles from '../../css/AuthForm.module.css';
+import mm2 from '../../assets/imgs/mm2.png';
 
 // TODO: Implementar integración con backend en entrega 6
 // TODO: Validar formularios
@@ -22,16 +24,22 @@ export default function RegistroPage() {
   };
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.fullPage}>
+      <div className={styles.wrap}>
+        <div className={styles.hero}>
+          <h1 className={styles.heroTitle}>¡Se parte de nuestra comunidad!</h1>
+          <Image className={styles.heroImg} src={mm2} alt="Mascota MetaMapa" priority />
+        </div>
+        <div className={styles.sectionTitle}>Registro</div>
       <div className={styles.title}>Registro</div>
       <form onSubmit={submit} className={styles.form}>
         <div className={styles.row}>
-          <label className={styles.label}>Nombre</label>
-          <input className={styles.input} placeholder="Tu nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+          <label className={styles.label}>Usuario</label>
+          <input className={styles.input} placeholder="Nuevo usuario..." value={nombre} onChange={(e) => setNombre(e.target.value)} />
         </div>
         <div className={styles.row}>
-          <label className={styles.label}>Email</label>
-          <input className={styles.input} placeholder="tu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <label className={styles.label}>Mail</label>
+          <input className={styles.input} placeholder="Tu mail..." value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className={styles.row}>
           <label className={styles.label}>Contraseña</label>
@@ -42,6 +50,7 @@ export default function RegistroPage() {
           <button className={styles.btn} type="button" onClick={() => router.push('/auth/login')}>Ya tengo cuenta</button>
         </div>
       </form>
+      </div>
     </div>
   );
 }

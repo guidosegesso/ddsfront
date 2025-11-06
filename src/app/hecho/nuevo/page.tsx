@@ -2,6 +2,7 @@
 import React from 'react';
 import FormHecho from '../../components/FormHecho';
 import { useSession } from '../../components/SessionContext';
+import formStyles from '../../css/FormHecho.module.css';
 
 // TODO: Implementar integración con backend en entrega 6
 // TODO: Validar formularios
@@ -11,11 +12,11 @@ export default function CrearHechoPage() {
   const { role } = useSession();
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className={formStyles.pageWrap}>
       <h2>Crear Hecho</h2>
       {role !== 'Contribuyente' && role !== 'Administrador' ? (
         <p style={{ opacity: 0.8 }}>
-          Debes iniciar sesión como Contribuyente para crear hechos. (UI mock)
+          Debes iniciar sesión para crear hechos. (UI mock)
         </p>
       ) : (
         <FormHecho />
@@ -23,4 +24,3 @@ export default function CrearHechoPage() {
     </div>
   );
 }
-

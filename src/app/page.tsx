@@ -1,5 +1,6 @@
 'use client'
 import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import MapCanvas from './components/Map/mapCanvas';
 import HechoDetalleModal from './components/HechoDetalleModal';
 import Filters, { FiltersState } from './components/Filters';
@@ -73,8 +74,13 @@ export default function Home() {
       <aside className={styles.side} style={{ width: sideWidth }}>
         <div className={styles.headerRow}>
           <div className={styles.sectionTitle}>Filtros</div>
-          <button className={styles.toggle} onClick={() => setFiltersOpen((v) => !v)}>
-            {filtersOpen ? 'Ocultar' : 'Mostrar'}
+          <button
+            className={`${styles.toggle} ${filtersOpen ? styles.toggleActive : ''}`}
+            onClick={() => setFiltersOpen((v) => !v)}
+            aria-label={filtersOpen ? 'Ocultar filtros' : 'Mostrar filtros'}
+            title={filtersOpen ? 'Ocultar filtros' : 'Mostrar filtros'}
+          >
+            {filtersOpen ? <FaEye /> : <FaEyeSlash />}
           </button>
         </div>
         {filtersOpen && (
