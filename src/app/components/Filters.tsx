@@ -87,7 +87,7 @@ export default function Filters({
           Limpiar
         </button>
         <button
-          className={styles.reset}          
+          className={styles.reset} style={{display:"none"}}
         >
           Buscar
         </button>

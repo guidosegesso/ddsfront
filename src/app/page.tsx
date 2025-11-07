@@ -15,6 +15,7 @@ import styles from './css/Home.module.css';
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [seleccionado, setSeleccionado] = useState<HechoFeature | null>(null);
+  const [search, setSearch] = useState('');
   const [filters, setFilters] = useState<FiltersState>({
     categoria: 'Todas',
     fuente: 'Todas',
@@ -47,15 +48,17 @@ export default function Home() {
   // En entrega 6 esto se reemplaza por datos desde API + filtros server-side.
   const hechos = MOCK_HECHOS;
   const filtrados = useMemo(() => {
+    const term = search.trim().toLowerCase();
     return hechos.filter((h) => {
       if (filters.categoria !== 'Todas' && h.categoria !== filters.categoria) return false;
       if (filters.fuente !== 'Todas' && h.fuente !== filters.fuente) return false;
       if (filters.coleccion !== 'Todas' && h.coleccion !== filters.coleccion) return false;
       if (filters.desde && h.fechaISO < filters.desde) return false;
       if (filters.hasta && h.fechaISO > filters.hasta) return false;
+      if (term && !h.titulo.toLowerCase().includes(term)) return false;
       return true;
     });
-  }, [hechos, filters]);
+  }, [hechos, filters, search]);
 
   const hechoSeleccionado = seleccionado
     ? {
@@ -109,6 +112,8 @@ export default function Home() {
       <section className={styles.map}>
         <MapCanvas
           features={filtrados}
+          search={search}
+          onSearchChange={setSearch}
           onFeatureClick={(f) => {
             setSeleccionado(f);
             setShowModal(true);

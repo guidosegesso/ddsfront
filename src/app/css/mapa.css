@@ -1,7 +1,7 @@
 .filter-navbar {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: auto; /* evitar que ocupe todo el ancho y se superponga */
 }
 
 .filter {

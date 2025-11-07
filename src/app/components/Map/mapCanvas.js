@@ -4,9 +4,8 @@ import Map, { Marker } from 'react-map-gl/mapbox-legacy'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Navbar from '../navbar/Navbar'
 import '../../css/mapa.css'
-import { HiAdjustmentsHorizontal } from "react-icons/hi2";    
-
-const MapCanvas = ({ features = [], onFeatureClick }) => {
+    
+const MapCanvas = ({ features = [], onFeatureClick, search = '', onSearchChange }) => {
   const mapRef = useRef(null)
 
   // Ajusta el encuadre del mapa cuando cambian los resultados
@@ -82,18 +81,17 @@ const MapCanvas = ({ features = [], onFeatureClick }) => {
 
       <div style={{
         position: 'absolute',
-        width: '100vw',
+        width: 'auto',
         top: '10px',
-        left: '0px',
+        left: '10px',
         zIndex: 10
       }} className='filter-navbar'>
-        <Navbar></Navbar>
-        <button className='filter'>Filtros<HiAdjustmentsHorizontal /></button>
+        <Navbar search={search} onSearchChange={onSearchChange} />
       </div>
 
       <div style={{
         position: 'absolute',
-        width: '100vw',
+        width: 'auto',
         top: '10px',
         left: '83vw',
         zIndex: 10

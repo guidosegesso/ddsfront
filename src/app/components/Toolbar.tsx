@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { FaRegBell, FaRegMap, FaRegEdit, FaRegChartBar, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { VscTools } from 'react-icons/vsc';
 import styles from '../css/Toolbar.module.css';
@@ -8,14 +8,17 @@ import { useSession } from './SessionContext';
 
 export default function Toolbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const { role, isAuthenticated, logout } = useSession();
 
   return (
     <div className={styles.toolbar}>
       <div className={styles.left}>
-        <button className={styles.icon} onClick={() => router.replace('/')} title="Inicio">
-          <FaRegMap />
-        </button>
+        {pathname !== '/' && (
+          <button className={styles.icon} onClick={() => router.replace('/')} title="Inicio">
+            <FaRegMap />
+          </button>
+        )}
         {isAuthenticated && (role === 'Contribuyente' || role === 'Administrador') && (
           <button className={styles.icon} onClick={() => router.push('/hecho/nuevo')} title="Crear Hecho">
             <FaRegEdit />
