@@ -1,11 +1,11 @@
 'use client'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react'
 import Map, { Marker } from 'react-map-gl/mapbox-legacy'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Navbar from '../navbar/Navbar'
 import '../../css/mapa.css'
-    
-const MapCanvas = ({ features = [], onFeatureClick, search = '', onSearchChange }) => {
+
+const MapCanvas = forwardRef(({ features = [], onFeatureClick, search = '', onSearchChange }, ref) => {
   const mapRef = useRef(null)
 
   // Ajusta el encuadre del mapa cuando cambian los resultados
@@ -47,6 +47,25 @@ const MapCanvas = ({ features = [], onFeatureClick, search = '', onSearchChange 
       try { map.fitBounds(ARG_BOUNDS, { padding, duration: 600 }) } catch {}
     }
   }, [features])
+
+  // Exponer una API imperativa para centrar el mapa desde afuera
+  useImperativeHandle(ref, () => ({
+    flyTo: (coords) => {
+      const map = mapRef.current?.getMap?.() || mapRef.current
+      if (!map || !coords) return
+      try {
+        map.flyTo({ center: [coords.lng, coords.lat], zoom: 12, duration: 700 })
+      } catch {}
+    },
+    flyToById: (id) => {
+      const f = (features || []).find((x) => x.id === id)
+      if (f?.coords) {
+        const map = mapRef.current?.getMap?.() || mapRef.current
+        if (!map) return
+        try { map.flyTo({ center: [f.coords.lng, f.coords.lat], zoom: 12, duration: 700 }) } catch {}
+      }
+    }
+  }), [features])
   return (
     <div style={{ position: 'relative', width: '95.42vw', height: '100vh' }}>
       <Map
@@ -112,6 +131,6 @@ const MapCanvas = ({ features = [], onFeatureClick, search = '', onSearchChange 
       </div>
     </div>
   )
-}
+})
 
 export default MapCanvas

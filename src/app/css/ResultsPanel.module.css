@@ -21,6 +21,7 @@
 .title { font-weight: 600; margin-bottom: 8px; }
 .list { display: grid; gap: 6px; }
 .scroll { max-height: 40vh; overflow-y: auto; padding-right: 2px; }
+.scrollExpanded { max-height: 70vh; overflow-y: auto; padding-right: 2px; }
 .itemRow {
   display: flex;
   align-items: center;

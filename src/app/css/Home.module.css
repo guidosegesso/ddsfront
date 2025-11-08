@@ -5,7 +5,7 @@
   overflow: hidden; /* Evita scroll de la página; solo scrollea la barra lateral */
 }
 .side {
-  min-width: 368px;
+  min-width: 390px;
   border-right: 1px solid #044DBA;
   background: #488FFA;
   color: #FFFFFF;

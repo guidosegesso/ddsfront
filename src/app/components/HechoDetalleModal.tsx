@@ -16,10 +16,12 @@ export default function HechoDetalleModal({
   open,
   onClose,
   hecho,
+  onViewOnMap,
 }: {
   open: boolean;
   onClose: () => void;
   hecho: Hecho | null | undefined;
+  onViewOnMap?: () => void;
 }) {
   if (!open || !hecho) return null;
   return (
@@ -54,6 +56,14 @@ export default function HechoDetalleModal({
               ))}
             </div>
           )}
+        </div>
+        <div className={styles.actions}>
+          <button
+            className={styles.primaryBtn}
+            onClick={() => { onViewOnMap?.() }}
+          >
+            Ver en Mapa
+          </button>
         </div>
       </div>
     </div>

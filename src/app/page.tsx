@@ -28,6 +28,7 @@ export default function Home() {
   const draggingRef = useRef(false);
   const startXRef = useRef(0);
   const startWidthRef = useRef(360);
+  const mapRef = useRef<any>(null);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -97,6 +98,7 @@ export default function Home() {
             if (f) { setSeleccionado(f); setShowModal(true); }
           }}
           variant="inline"
+          expanded={!filtersOpen}
         />
       </aside>
       <div
@@ -111,6 +113,7 @@ export default function Home() {
       />
       <section className={styles.map}>
         <MapCanvas
+          ref={mapRef}
           features={filtrados}
           search={search}
           onSearchChange={setSearch}
@@ -125,6 +128,13 @@ export default function Home() {
         open={showModal}
         onClose={() => setShowModal(false)}
         hecho={hechoSeleccionado}
+        onViewOnMap={() => {
+          const coords = hechoSeleccionado?.ubicacion;
+          if (coords) {
+            mapRef.current?.flyTo?.(coords);
+            setShowModal(false);
+          }
+        }}
       />
     </div>
   );
