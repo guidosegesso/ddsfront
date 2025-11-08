@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { API_BASE_URL, API_TOKEN, API_TOKEN_HEADER, TOKEN_STORAGE_KEY, isBrowser } from "../config/env";
 
 const client = axios.create({
@@ -15,8 +15,13 @@ client.interceptors.request.use((config) => {
     if (isBrowser) {
       const token = localStorage.getItem(TOKEN_STORAGE_KEY);
       if (token) {
-        config.headers = config.headers || {};
-        (config.headers as any).Authorization = `Bearer ${token}`;
+        if (!config.headers) {
+          config.headers = new AxiosHeaders();
+        } else if (!(config.headers as any).set) {
+          // Normalize plain object headers to AxiosHeaders for typed mutation
+          config.headers = new AxiosHeaders(config.headers as any);
+        }
+        (config.headers as AxiosHeaders).set("Authorization", `Bearer ${token}`);
       }
     }
   } catch {}
