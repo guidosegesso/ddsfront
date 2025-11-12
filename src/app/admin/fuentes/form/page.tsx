@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from '../../../components/SessionContext';
 import styles from '../../../css/AdminConfig.module.css';
 import { findFuente } from '../../../lib/configData';
 
-export default function FuenteFormPage() {
+function FuenteFormContent() {
   const { role } = useSession();
   const router = useRouter();
   const params = useSearchParams();
@@ -52,3 +52,10 @@ export default function FuenteFormPage() {
   );
 }
 
+export default function FuenteFormPage() {
+  return (
+    <Suspense fallback={<div className={styles.page}>Cargando formulario...</div>}>
+      <FuenteFormContent />
+    </Suspense>
+  );
+}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from '../../../components/SessionContext';
 import styles from '../../../css/AdminConfig.module.css';
@@ -8,7 +8,7 @@ import { findColeccion } from '../../../lib/configData';
 const CATEGORIAS = ['Robos', 'Obras', 'Incidentes', 'Eventos', 'Dato'];
 const ALGORITMOS = ['may_simple', 'prioridad_alta', 'relevancia'];
 
-export default function ColeccionFormPage() {
+function ColeccionFormContent() {
   const { role } = useSession();
   const router = useRouter();
   const params = useSearchParams();
@@ -87,3 +87,10 @@ export default function ColeccionFormPage() {
   );
 }
 
+export default function ColeccionFormPage() {
+  return (
+    <Suspense fallback={<div className={styles.page}>Cargando formulario...</div>}>
+      <ColeccionFormContent />
+    </Suspense>
+  );
+}
