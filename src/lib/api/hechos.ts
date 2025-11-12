@@ -11,3 +11,8 @@ export async function obtenerHechos(params?: Record<string, any>): Promise<Hecho
   const { data } = await client.get<Hecho[]>(ENDPOINT_HECHOS, { params });
   return data;
 }
+
+export async function obtenerHecho(id: string | number): Promise<Hecho> {
+  const { data } = await client.get<Hecho>(`${ENDPOINT_HECHOS}/${id}`);
+  return data;
+}

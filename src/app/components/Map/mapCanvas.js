@@ -4,6 +4,7 @@ import Map, { Marker } from 'react-map-gl/mapbox-legacy'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Navbar from '../navbar/Navbar'
 import '../../css/mapa.css'
+import metamapaLogo from '../../assets/imgs/metamapa.png'
 
 const MapCanvas = forwardRef(({ features = [], onFeatureClick, search = '', onSearchChange }, ref) => {
   const mapRef = useRef(null)
@@ -97,6 +98,12 @@ const MapCanvas = forwardRef(({ features = [], onFeatureClick, search = '', onSe
           </Marker>
         ))}
       </Map>
+
+      {/* Marca MetaMapa: controlable por CSS (tamaño y lado) */}
+      <div className='map-brand'>
+        {/* Usamos <img> para permitir control total desde CSS */}
+        <img src={(metamapaLogo?.src || metamapaLogo)} alt="MetaMapa" />
+      </div>
 
       <div style={{
         position: 'absolute',

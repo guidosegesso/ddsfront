@@ -1,14 +1,15 @@
-export type HechoFeature = {
+﻿export type HechoFeature = {
   id: string;
   titulo: string;
   descripcion: string;
   fechaISO: string; // YYYY-MM-DD
   categoria: 'Obra' | 'Incidente' | 'Evento' | 'Dato';
-  fuente: 'Bolet��n' | 'Dataset' | 'Usuario' | 'Otro';
-  coleccion: 'Obras Pǧblicas' | 'Incidentes Viales' | 'Eventos Culturales' | 'Infraestructura';
+  fuente: 'Boletin' | 'Dataset' | 'Usuario' | 'Otro';
+  coleccion: 'Obras Publicas' | 'Incidentes Viales' | 'Eventos Culturales' | 'Infraestructura';
   coords: { lat: number; lng: number };
   estado: 'Publicado' | 'Pendiente' | 'Rechazado';
   autor: string;
+  adjuntos?: Array<{ id: string; url: string; tipo: 'imagen' | 'video' }>;
 };
 
 export const MOCK_HECHOS: HechoFeature[] = [
@@ -24,6 +25,9 @@ export const MOCK_HECHOS: HechoFeature[] = [
     coords: { lat: -34.6037, lng: -58.3816 }, // CABA
     estado: 'Publicado',
     autor: 'contrib1',
+    adjuntos: [
+      { id: 'h001-img1', url: 'https://letraslibres.com/wp-content/uploads/2022/08/bache-gz.jpg', tipo: 'imagen' },
+    ],
   },
   {
     id: 'H-002',
@@ -49,6 +53,10 @@ export const MOCK_HECHOS: HechoFeature[] = [
     coords: { lat: -31.4201, lng: -64.1888 }, // Cordoba
     estado: 'Pendiente',
     autor: 'contrib2',
+    adjuntos: [
+      { id: 'h003-img1', url: 'https://www.santafecultura.gob.ar/wp-content/uploads/sites/81/2025/01/Fiesta-Provincial-del-Trigo-de-San-Genaro-2.jpeg', tipo: 'imagen' },
+      { id: 'h003-img2', url: 'https://silvercoder.rionegro.gov.ar/files/1671126157_7a0ac6c76739e4df09fb.jpg', tipo: 'imagen' },
+    ],
   },
   {
     id: 'H-004',
@@ -139,7 +147,3 @@ export const MOCK_HECHOS: HechoFeature[] = [
     autor: 'contrib6',
   },
 ];
-
-// TODO: Reemplazar MOCK_HECHOS con datos reales desde API de MetaMapa (entrega 6)
-// TODO: Exponer funciones para fetch paginado, filtros del backend y normalizaci��n
-

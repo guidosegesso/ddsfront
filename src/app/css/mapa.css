@@ -92,3 +92,20 @@
     gap: 10px;
     flex-direction: column;
 }
+
+/* Marca/Logo MetaMapa dentro del mapa */
+.map-brand {
+    position: absolute;
+    z-index: 12;
+    bottom: var(--map-brand-offset, 12px);
+    /* Por defecto a la izquierda. Para pasarlo a la derecha desde CSS: 
+       .map-brand { --map-brand-left: auto; --map-brand-right: 12px; } */
+    left: var(--map-brand-left, 12px);
+    right: var(--map-brand-right, auto);
+    pointer-events: none; /* no bloquear interacciones del mapa */
+}
+.map-brand img {
+    display: block;
+    width: var(--map-brand-size, 120px);
+    height: auto;
+}

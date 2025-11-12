@@ -14,6 +14,7 @@ export const service = {
   // Hechos
   crearHecho: Hechos.crearHecho,
   obtenerHechos: Hechos.obtenerHechos,
+  obtenerHecho: Hechos.obtenerHecho,
   // Gestión (solicitudes, colecciones, estadísticas)
   crearSolicitud: Gestion.crearSolicitud,
   crearColeccion: Gestion.crearColeccion,

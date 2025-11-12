@@ -2,6 +2,8 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import MapCanvas from './components/Map/mapCanvas';
+import Image from 'next/image';
+import metamapa from './assets/imgs/metamapa.png';
 import HechoDetalleModal from './components/HechoDetalleModal';
 import Filters, { FiltersState } from './components/Filters';
 import { MOCK_HECHOS, HechoFeature } from './components/Map/dataMocks';
@@ -69,7 +71,7 @@ export default function Home() {
         fecha: seleccionado.fechaISO,
         categoria: seleccionado.categoria,
         ubicacion: seleccionado.coords,
-        adjuntos: [],
+        adjuntos: seleccionado.adjuntos || [],
       }
     : null;
 
@@ -122,6 +124,9 @@ export default function Home() {
             setShowModal(true);
           }}
         />
+        <div className={`${styles.mapBrand} ${styles.brandLeft}`} aria-hidden>
+          <Image className={styles.mapBrandImg} src={metamapa} alt="MetaMapa" priority />
+        </div>
       </section>
 
       <HechoDetalleModal

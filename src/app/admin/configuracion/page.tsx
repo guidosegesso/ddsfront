@@ -1,67 +1,96 @@
-"use client";
+﻿"use client";
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from '../../components/SessionContext';
-
-// TODO: Implementar integración con backend en entrega 6
-// TODO: Validar formularios
-// TODO: Cargar datos reales desde API de MetaMapa
+import styles from '../../css/AdminConfig.module.css';
+import ConfirmDialog from '../../components/ConfirmDialog';
+import { MOCK_COLECCIONES, MOCK_FUENTES } from '../../lib/configData';
 
 export default function ConfiguracionPage() {
   const { role } = useSession();
-  const [fuentes] = useState([
-    { id: 'F-001', nombre: 'Boletín Oficial' },
-    { id: 'F-002', nombre: 'Dataset Público' },
-  ]);
-  const [colecciones] = useState([
-    { id: 'C-001', nombre: 'Obras Públicas' },
-    { id: 'C-002', nombre: 'Incidentes Viales' },
-  ]);
+  const router = useRouter();
+  const [fuentes, setFuentes] = useState(MOCK_FUENTES);
+  const [colecciones, setColecciones] = useState(MOCK_COLECCIONES);
+  const [confirm, setConfirm] = useState<null | { tipo: 'fuente' | 'coleccion'; id: string; nombre: string }>(null);
 
   if (role !== 'Administrador') {
     return (
-      <div style={{ padding: 16 }}>
-        <h2>Fuentes y Colecciones</h2>
-        <p>Solo Administradores pueden acceder a esta vista. (UI mock)</p>
+      <div className={styles.page}>
+        <div className={styles.card}>
+          <div className={styles.title}>Fuentes y Colecciones</div>
+          <p>Solo Administradores pueden acceder a esta vista. (UI mock)</p>
+        </div>
       </div>
     );
   }
 
+  const solicitarEliminar = (tipo: 'fuente' | 'coleccion', id: string, nombre: string) => {
+    setConfirm({ tipo, id, nombre });
+  };
+
+  const eliminar = () => {
+    if (!confirm) return;
+    if (confirm.tipo === 'fuente') {
+      setFuentes((prev) => prev.filter((f) => f.id !== confirm.id));
+    } else {
+      setColecciones((prev) => prev.filter((c) => c.id !== confirm.id));
+    }
+    setConfirm(null);
+  };
+
   return (
-    <div style={{ padding: 16 }}>
-      <h2>Administrar Fuentes y Colecciones</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <section>
-          <h3>Fuentes</h3>
-          <ul>
-            {fuentes.map((f) => (
-              <li key={f.id} style={{ margin: '6px 0' }}>
-                {f.nombre}
-                <div style={{ marginTop: 6 }}>
-                  <button style={{ marginRight: 6 }}>Editar</button>
-                  <button>Eliminar</button>
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <div className={styles.title}>Administrar Fuentes y Colecciones</div>
+        <div className={styles.columns}>
+          <section className={styles.panel}>
+            <div className={styles.panelTitle}>Fuentes</div>
+            <div className={styles.list}>
+              {fuentes.length === 0 && <div className={styles.empty}>No hay fuentes registradas.</div>}
+              {fuentes.map((f) => (
+                <div key={f.id} className={styles.row}>
+                  <span className={styles.rowName}>{f.nombre}</span>
+                  <div className={styles.rowActions}>
+                    <button className={`${styles.btn} ${styles.btnRed}`} onClick={() => solicitarEliminar('fuente', f.id, f.nombre)}>
+                      Eliminar
+                    </button>
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-          <button>Agregar Fuente</button>
-        </section>
-        <section>
-          <h3>Colecciones</h3>
-          <ul>
-            {colecciones.map((c) => (
-              <li key={c.id} style={{ margin: '6px 0' }}>
-                {c.nombre}
-                <div style={{ marginTop: 6 }}>
-                  <button style={{ marginRight: 6 }}>Editar</button>
-                  <button>Eliminar</button>
+              ))}
+            </div>
+            <button className={styles.btnAdd} onClick={() => router.push('/admin/fuentes/form')}>Agregar Fuente</button>
+          </section>
+
+          <section className={styles.panel}>
+            <div className={styles.panelTitle}>Colecciones</div>
+            <div className={styles.list}>
+              {colecciones.length === 0 && <div className={styles.empty}>No hay colecciones registradas.</div>}
+              {colecciones.map((c) => (
+                <div key={c.id} className={styles.row}>
+                  <span className={styles.rowName}>{c.nombre}</span>
+                  <div className={styles.rowActions}>
+                    <button className={`${styles.btn} ${styles.btnBlue}`} onClick={() => router.push(`/admin/colecciones/form?id=${c.id}`)}>
+                      Editar
+                    </button>
+                    <button className={`${styles.btn} ${styles.btnRed}`} onClick={() => solicitarEliminar('coleccion', c.id, c.nombre)}>
+                      Eliminar
+                    </button>
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-          <button>Agregar Colección</button>
-        </section>
+              ))}
+            </div>
+            <button className={styles.btnAdd} onClick={() => router.push('/admin/colecciones/form')}>Agregar Coleccion</button>
+          </section>
+        </div>
       </div>
+
+      {confirm && (
+        <ConfirmDialog
+          message={`Eliminar ${confirm.tipo === 'fuente' ? 'la fuente' : 'la coleccion'} "${confirm.nombre}"? Esta accion no se puede deshacer.`}
+          onCancel={() => setConfirm(null)}
+          onConfirm={eliminar}
+        />
+      )}
     </div>
   );
 }
-

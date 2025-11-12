@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import styles from '../css/FormHecho.module.css';
+import UploadAdjunto from './UploadAdjunto';
 
 export type HechoInput = {
   titulo: string;
@@ -117,6 +118,8 @@ export default function FormHecho({
           placeholder="robo, zona-sur, auto"
         />
       </div>
+
+      <UploadAdjunto />
 
       <div className={styles.actions}>
         <button type="submit">Crear Hecho</button>

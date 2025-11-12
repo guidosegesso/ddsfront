@@ -8,12 +8,12 @@ export async function crearSolicitud(payload: SolicitudCreate): Promise<Solicitu
 }
 
 export async function aprobarSolicitud(id: string | number): Promise<Solicitud> {
-  const { data } = await client.post<Solicitud>(`${ENDPOINT_SOLICITUDES}/${id}/aprobar`);
+  const { data } = await client.put<Solicitud>(ENDPOINT_SOLICITUDES, undefined, { params: { id, aceptada: true } });
   return data;
 }
 
 export async function rechazarSolicitud(id: string | number): Promise<Solicitud> {
-  const { data } = await client.post<Solicitud>(`${ENDPOINT_SOLICITUDES}/${id}/rechazar`);
+  const { data } = await client.put<Solicitud>(ENDPOINT_SOLICITUDES, undefined, { params: { id, aceptada: false } });
   return data;
 }
 
@@ -27,4 +27,3 @@ export async function consultarEstadistica(nombre: string, params?: Record<strin
   const { data } = await client.get<EstadisticaRespuesta>(`${base}/${encodeURIComponent(nombre)}`, { params });
   return data;
 }
-
